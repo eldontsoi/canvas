@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Drawing Area</title>
+<!-- You can add your style here rather than in an external style sheet. -->
+<style>
+	canvas {
+	    border:5px solid #d3d3d3;
+	    background-color: #f1f1f1;
+	    display: block;
+/*        width:  80%;
+        height: 80%;*/
+	}
+</style>
+</head>
+<body>
+    <!-- DO NOT MODIFY THIS HTML -->
+    <canvas id = "myCanvas" width = "350" height = "500"  ></canvas>
+    <input type = "color" id = "picker"/>
+</body>
+
+
+<script type="text/javascript">
+    var canvas = document.querySelector("#myCanvas");
+    var ctx = canvas.getContext("2d"); //i want to draw a 2d thing
+    ctx.fillStyle = "#00ff00"
+    var color = 'red';
+    var drawBool = true;
+    canvas.width  = window.innerWidth * 0.8;
+    canvas.height = window.innerHeight * 0.8;
+
+
+    function draw (posX,posY) {
+        if (drawBool == true){
+
+                console.log("I'M GONNA DRAW")
+                ctx.fillStyle = color; // if you know something gonna change, use variable
+                ctx.beginPath();
+
+                ctx.arc(posX,posY,10,0,2 * Math.PI); // x,y, width, height, radius, startAngle, endAngle [, anticlockwise]
+                ctx.fill();
+            }
+
+    }
+    canvas.addEventListener(
+        'mousemove',
+        function (e){
+            // console.log(e.x - canvas.offsetLeft); //MUST NEED FOR ASSIGNMENT
+            // console.log(e.y - canvas.offsetTop);
+            //  drawBool = true;
+        draw(e.x - canvas.offsetLeft,e.y  - canvas.offsetTop); //radius need to be 10
+        }
+
+    )
+
+    window.addEventListener(
+        'keydown',function(e){
+        console.log(e);
+
+        if (e.keyCode == 66){
+            color = 'blue';
+        }
+        if (e.keyCode == 82){
+            color = 'red';
+        }
+        if (e.keyCode == 71){
+            color = 'green';
+        }
+        if (e.keyCode == 89){
+            color = 'yellow';
+        }
+        if (e.keyCode == 32){
+            ctx.beginPath();
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+        }
+        if (e.keyCode == 40){
+            // ctx.fillStyle = false;
+            drawBool = true;
+        }if (e.keyCode == 38){
+            drawBool = false;
+        }
+    }
+    )
+    window.addEventListener( "change", function(e){ //how to change this
+        color = picker.value;
+        ctx.fillStyle = color;
+    })
+    // if drawBool == true{
+    //     draw();
+    // }
+    // if drawBool == false{
+    //     //don't draw
+    // }
+
+
+</script>
+
+</html>
